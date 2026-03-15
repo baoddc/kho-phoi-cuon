@@ -1,0 +1,751 @@
+/* =============================================================================
+   BASE STYLES (from home.css)
+   Các style cơ bản cho trang
+================================================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: auto;
+  overflow-y: auto;
+}
+
+
+dl, ol, ul {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+ol, ul {
+    padding-left: 0;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 5px 20px;
+  z-index: 1000;
+  background: #2a2b56;
+  gap: 40px;
+  backdrop-filter: blur(10px);
+}
+
+    
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #fff;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logo a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.logo:hover {
+  color: #00d9ff;
+  text-shadow: 0 0 20px rgba(0, 217, 255, 0.5);
+}
+
+.logo:hover a {
+  color: #00d9ff;
+}
+
+/* Hamburger Menu */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  cursor: pointer;
+  gap: 5px;
+  padding: 5px;
+  z-index: 1001;
+}
+
+.hamburger span {
+  display: block;
+  width: 25px;
+  height: 3px;
+  background-color: #fff;
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger.active span:nth-child(1) {
+  transform: rotate(45deg) translate(5px, 5px);
+}
+
+.hamburger.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.hamburger.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(5px, -5px);
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 40px;
+}
+
+nav a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+nav a::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #00d9ff, #00ff88);
+  transition: width 0.3s ease;
+}
+
+nav a:hover {
+  color: #00d9ff;
+}
+
+nav a:hover::after {
+  width: 100%;
+}
+
+/* Dropdown */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: rgba(15, 52, 96, 0.95);
+  min-width: 150px;
+  list-style: none;
+  padding: 10px 0;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(0, 217, 255, 0.2);
+}
+
+/* Desktop: hover */
+@media (min-width: 769px) {
+  .dropdown:hover > .dropdown-menu {
+    display: block;
+    animation: fadeIn 0.3s ease;
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Mobile: click to show dropdown */
+.dropdown.active .dropdown-menu {
+  display: block;
+}
+
+.dropdown:hover > a {
+  color: #00d9ff;
+}
+
+.dropdown-menu li {
+  padding: 0;
+}
+
+.dropdown-menu a {
+  display: block;
+  padding: 10px 20px;
+  font-size: 13px;
+  white-space: nowrap;
+  transition: all 0.3s ease;
+}
+
+.dropdown-menu a:hover {
+  background: linear-gradient(90deg, rgba(0, 217, 255, 0.2), rgba(0, 255, 136, 0.1));
+  color: #00d9ff;
+  padding-left: 25px;
+}
+
+/* Dropdown submenu */
+.dropdown-submenu {
+  position: relative;
+}
+
+.dropdown-submenu > .dropdown-menu {
+  display: none;
+  position: absolute;
+  left: 100%;
+  top: 0;
+  margin-top: 0;
+  margin-left: 0;
+}
+
+/* Only show submenu on hover over the submenu item itself */
+.dropdown-submenu:hover > .dropdown-menu {
+  display: block;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Remove triangle arrow for dropdown submenu */
+.dropdown-submenu > a::after {
+  display: none;
+}
+
+/* User Info */
+.user-info {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.user-info small {
+  color: #aaa;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.user-info strong {
+  color: #00d9ff;
+}
+
+.text-muted {
+    color: rgb(255 255 255 / 100%) !important;
+}
+
+.btn-logout {
+  background: transparent;
+  border: 1px solid #e74c3c;
+  color: #e74c3c;
+  padding: 5px 12px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+}
+
+.btn-logout:hover {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.4);
+}
+
+/* Main Content */
+.main-content {
+  margin-top: 45px;
+  padding: 20px;
+}
+
+/* =============================================================================
+   RESPONSIVE STYLES (from home.css)
+================================================================================ */
+
+/* Tablet */
+@media (max-width: 992px) {
+  header {
+    padding: 10px 15px;
+    gap: 20px;
+  }
+
+  .logo {
+    font-size: 20px;
+  }
+
+  nav ul {
+    gap: 25px;
+  }
+
+  nav a {
+    font-size: 13px;
+  }
+}
+
+/* Mobile */
+@media (max-width: 768px) {
+  header {
+    padding: 10px 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .logo {
+    font-size: 18px;
+    letter-spacing: 2px;
+  }
+
+  /* Hamburger menu visible on mobile */
+  .hamburger {
+    display: flex;
+  }
+
+  /* Navigation menu - hidden by default on mobile */
+  nav {
+    display: none;
+    width: 100%;
+    order: 3;
+  }
+
+  nav.active {
+    display: block;
+  }
+
+  nav ul {
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    padding: 10px 0;
+    background: rgba(0, 0, 0, 0.9);
+    border-radius: 8px;
+    margin-top: 10px;
+  }
+
+  nav ul li {
+    width: 100%;
+  }
+
+  nav a {
+    display: block;
+    padding: 12px 20px;
+    font-size: 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  nav a:hover {
+    background: rgba(255, 193, 7, 0.1);
+    color: #ffc107;
+  }
+
+  /* Dropdown menu on mobile */
+  .dropdown-menu {
+    position: static;
+    background: rgba(0, 0, 0, 0.5);
+    box-shadow: none;
+    border-radius: 0;
+  }
+
+  .dropdown-menu a {
+    padding-left: 40px;
+    font-size: 13px;
+  }
+
+  /* User info */
+  .user-info {
+    gap: 10px;
+  }
+
+  .user-info small {
+    font-size: 11px;
+  }
+
+  .btn-logout {
+    padding: 4px 10px;
+    font-size: 11px;
+  }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+  header {
+    padding: 8px 10px;
+  }
+
+  .logo {
+    font-size: 16px;
+  }
+
+  .hamburger span {
+    width: 22px;
+    height: 2px;
+  }
+}
+
+/* =============================================================================
+   CUSTOM STYLES FOR PHIẾU IN PAGE
+================================================================================ */
+
+/* Form Container */
+.form-container {
+  max-width: 800px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.form-title {
+  text-align: center;
+  color: #0d47a1;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-label {
+  font-weight: 600;
+  color: #333;
+}
+
+.btn-primary {
+  background-color: #0d47a1;
+  border-color: #0d47a1;
+}
+
+.btn-primary:hover {
+  background-color: #1565c0;
+  border-color: #1565c0;
+}
+
+.success-message {
+  display: none;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 5px;
+}
+
+.success-message.show {
+  display: block;
+}
+
+.error-message {
+  display: none;
+  padding: 15px;
+  margin-top: 15px;
+  border-radius: 5px;
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.error-message.show {
+  display: block;
+}
+
+.hang-hoa-row {
+  padding: 10px 0;
+  border-bottom: 1px solid #eee;
+}
+
+.hang-hoa-row:last-child {
+  border-bottom: none;
+}
+
+.btn-remove-row {
+  display: none;
+}
+
+.btn-remove-row.visible {
+  display: block;
+}
+
+/* Data Table */
+#dataTable {
+  font-size: 14px;
+}
+
+#dataTableBody{
+  text-align: center;
+}
+
+/* Sticky Table Header - Fixed header when scrolling */
+#dataTable th {
+  background-color: #0d6efd;
+  color: #000 !important;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  text-align: center;
+  vertical-align: middle;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  font-size: 0.75rem;
+  padding: 0.5rem 0.4rem;
+  line-height: 1.2;
+  font-weight: 700;
+  border-bottom: 2px solid #ffffff;
+}
+
+#dataTable thead th {
+  position: sticky;
+  z-index: 10;
+}
+
+#dataTable thead {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+}
+
+/* Table responsive wrapper */
+.table-responsive {
+  height: calc(106vh - 200px);
+  overflow-y: auto;
+}
+
+/* Optional: Add column width hints for better layout */
+#dataTable th,
+#dataTable td {
+  min-width: 100px;
+  max-width: 300px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Allow specific columns to have custom widths */
+th:nth-child(1), td:nth-child(1) {min-width: 10px; width: 80px;}
+th:nth-child(2), td:nth-child(2) {min-width: 10px; width: 80px;}
+
+
+
+
+#dataTable th {
+  background-color: #ffffff;
+  color: white;
+  text-align: center;
+  vertical-align: middle;
+}
+
+#dataTable td {
+  vertical-align: middle;
+}
+
+#dataTable .btn {
+  padding: 4px 8px;
+  font-size: 12px;
+}
+
+/* Filters */
+.filters {
+  background: #f8f9fa;
+  border-radius: 8px;
+  border: 1px solid #e9ecef;
+}
+
+/* =============================================================================
+   ACTION BUTTONS
+   Style cho các nút thêm, sửa, xóa dữ liệu (giống xg-nhap.css)
+================================================================================ */
+
+/* Base button style */
+.add-row-btn {
+  padding: 8px 16px;
+  border-radius: 8px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Button hover effect - shimmer */
+.add-row-btn::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s ease;
+}
+
+.add-row-btn:hover::before {
+  left: 100%;
+}
+
+/* Add Data Button - Blue (like import cards) */
+#btnAddData {
+  background: linear-gradient(135deg, #3498db, #2980b9);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(52, 152, 219, 0.3);
+}
+
+#btnAddData:hover {
+  background: linear-gradient(135deg, #2980b9, #1a5276);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(52, 152, 219, 0.4);
+  color: #fff;
+}
+
+/* Edit Data Button - Cyan/Teal (like filter buttons) */
+#btnEditData {
+  background: linear-gradient(135deg, #00d9ff, #00b4d8);
+  color: #1a1a2e;
+  box-shadow: 0 4px 15px rgba(0, 217, 255, 0.3);
+}
+
+#btnEditData:hover {
+  background: linear-gradient(135deg, #00b4d8, #0096c7);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 217, 255, 0.4);
+  color: #1a1a2e;
+}
+
+/* Delete Data Button - Red (like export cards) */
+#btnDeleteData {
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+#btnDeleteData:hover {
+  background: linear-gradient(135deg, #c0392b, #922b21);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(231, 76, 60, 0.4);
+  color: #fff;
+}
+
+/* Create Phieu Button - Purple/Info (like special action) */
+#btnCreatePhieu {
+  background: linear-gradient(135deg, #9b59b6, #8e44ad);
+  color: #fff;
+  box-shadow: 0 4px 15px rgba(155, 89, 182, 0.3);
+}
+
+#btnCreatePhieu:hover {
+  background: linear-gradient(135deg, #8e44ad, #6c3483);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(155, 89, 182, 0.4);
+  color: #fff;
+}
+
+/* Disabled button styles */
+.add-row-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+#btnAddData:disabled {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+}
+
+#btnEditData:disabled {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+  color: #fff;
+}
+
+#btnDeleteData:disabled {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+}
+
+#btnCreatePhieu:disabled {
+  background: linear-gradient(135deg, #95a5a6, #7f8c8d);
+}
+
+/* =============================================================================
+   FILTER & PAGINATION BUTTONS
+   Style cho nút phân trang và lọc
+================================================================================ */
+
+/* Pagination buttons - keep original style */
+#prevPage,
+#nextPage {
+  font-size: 0.8rem;
+  padding: 4px 8px;
+}
+
+/* Page select */
+#pageSelect {
+  border-radius: 8px;
+  border: 1px solid #ced4da;
+  padding: 4px 36px 4px 8px;
+  font-size: 0.8rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+#pageSelect:focus {
+  border-color: #3498db;
+  box-shadow: 0 0 0 0.2rem rgba(52, 152, 219, 0.25);
+}
+
+/* Page info */
+#pageInfo {
+  font-size: 0.8rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Add Data Modal */
+.add-hang-hoa-row {
+  padding: 5px 0;
+}
+
+.add-hang-hoa-row input {
+  font-size: 14px;
+}
+
+/* Custom scrollbar for modal */
+#addDataModal .modal-body {
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+#addDataModal .modal-body::-webkit-scrollbar {
+  width: 8px;
+}
+
+#addDataModal .modal-body::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+#addDataModal .modal-body::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+#addDataModal .modal-body::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Read-only field styles */
+.read-only-field {
+  background-color: #e9ecef !important;
+  cursor: not-allowed !important;
+  color: #495057;
+}
+
+.read-only-field:focus {
+  background-color: #e9ecef !important;
+  border-color: #ced4da;
+  box-shadow: none;
+}

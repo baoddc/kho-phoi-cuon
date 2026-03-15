@@ -1,0 +1,249 @@
+/* --- CSS STYLING --- */
+* {
+    box-sizing: border-box;
+    font-family: "Times New Roman", Times, serif; /* Font chữ văn phòng phổ biến */
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #f0f0f0;
+    padding: 0px;
+}
+
+.page {
+    width: 1100px; /* Độ rộng tối ưu cho khổ A4 ngang */
+    margin: 0 auto;
+    background-color: #fff;
+    padding: 0px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    margin-left: 0px;
+    margin-right: 0px;
+}
+
+/* Header Section */
+.header-container {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 0px;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    border-top: 1px solid #000;
+}
+
+.logo-box {
+    flex: 0 0 100%;
+    text-align: center;
+}
+
+.logo-box img {
+    margin-top: 10px;
+    width: 98%;
+    height: 100px;
+}
+
+.company-info {
+    flex: 1;
+    padding-left: 20px;
+}
+
+.company-info h2 {
+    color: #e31b23;
+    font-size: 19px;
+    margin-bottom: 6px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.info-line {
+    display: flex;
+    align-items: center;
+    font-size: 13px;
+    margin-bottom: 3px;
+}
+
+.icon-circle {
+    color: #e31b23;
+    font-size: 10px;
+    margin-right: 8px;
+}
+
+.contact-group {
+    display: flex;
+    gap: 25px;
+    margin-top: 5px;
+}
+
+.red-divider {
+    height: 3px;
+    background-color: #e31b23;
+    width: 100%;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+/* Title Section */
+.form-title-block {
+    text-align: center;
+    margin-bottom: 0px;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+}
+
+.title-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.form-title-block h1 {
+    font-size: 26px;
+    margin: 5px 0;
+    font-weight: bold;
+}
+
+.title-main {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.title-main span {
+    position: absolute;
+    right: 0;
+    padding-right: 56px;
+}
+
+.date-label {
+    font-weight: bold;
+    font-size: 13px;
+}
+
+/* Tables Common */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 0px;
+}
+
+table, th, td {
+    border: 1px solid #000;
+}
+
+th, td {
+    padding: 0px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.bold { font-weight: bold; }
+.text-left { text-align: left; }
+
+/* Project Table */
+.project-table td {
+    height: 35px;
+    font-weight: bold;
+  
+}
+
+/* Main Product Table */
+.product-table thead th {
+    font-size: 11px;
+    background-color: #fff;
+}
+
+.product-table thead th:first-child {
+    border-top: 0;
+    text-align: center;
+    padding-left: 10px;
+}
+
+/* Column widths for product table */
+.col-stt { width: 40px; }
+.col-mathang { width: 300px; }
+.col-mavt { width: 70px; }
+.col-dvt { width: 70px; }
+.col-trongluongxe { width: 90px; }
+.col-trongluonghang { width: 90px; }
+.col-trongluongxe-hang { width: 90px; }
+.col-thucnhan { width: 125px; }
+.col-ghichu { width: 125px; }
+
+/* Column widths for project table */
+.project-table .col-ma { width: 25%; }
+.project-table .col-ten { width: 25%; }
+.project-table .col-ben-nhan { width: 25%; }
+.project-table .col-loai-xuat { width: 25%; }
+
+/* Bên giao row */
+.project-table .col-ben-giao { 
+    font-weight: bold; 
+    text-align: left;
+    padding-left: 180px;
+    border-bottom: 0px;
+}
+
+.product-table tbody td {
+    height: 28px;
+}
+
+/* Left align mặt hàng column */
+.product-table tbody td:nth-child(2) {
+    text-align: center;
+    padding-left: 10px;
+}
+
+/* Center the Mặt hàng header */
+.product-table thead th:nth-child(2) {
+    text-align: center;
+}
+
+.total-row td {
+    height: 30px;
+    font-weight: bold;
+}
+
+.total-row .total-label {
+    text-align: center;
+    padding-left: 0px;
+    font-weight: bold;
+}
+
+.total-row .total-value {
+    font-weight: bold;
+    text-align: center;
+}
+
+.note-text {
+    font-size: 13px;
+    margin: 0px 0;
+    border-left: 1px solid #000;
+    border-right: 1px solid #000;
+    height: 20px;
+    align-content: center;
+}
+
+/* Signature Table */
+.signature-table td {
+    width: 18%;
+}
+
+.signature-table .label-col {
+    width: 10%;
+    font-weight: normal;
+}
+
+.sig-height { height: 70px; }
+.name-height { 
+    height: 35px; 
+    font-weight: bold; 
+
+}
+
+
+.date-height { 
+    height: 25px; 
+    font-weight: bold;
+}
