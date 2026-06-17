@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
 // Danh sách tài khoản hợp lệ
 const validAccounts = [
-   { username: 'bao.lt', password: '6697' },
+   { username: 'bao.lt', password: '6697@' },
    { username: 'admin', password: 'admin123' },
    { username: 'user1', password: 'pass123' },
    { username: 'user2', password: 'pass456' }
