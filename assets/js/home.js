@@ -53,14 +53,14 @@ function showAuthModal() {
 
     // Initial click handlers
     document.getElementById('modal-login-btn').onclick = () => {
-      window.location.href = '/pages/index.html';
+      window.location.href = 'index.html';
     };
 
     document.getElementById('modal-cancel-btn').onclick = () => {
       const currentPage = window.location.pathname.split('/').pop() || 'index.html';
 
       if (!PUBLIC_PAGES.includes(currentPage) && currentPage !== 'index.html') {
-        window.location.href = '/pages/home.html';
+        window.location.href = 'home.html';
       } else {
         modal.classList.remove('active');
       }
@@ -155,7 +155,7 @@ window.addEventListener('load', () => {
     setTimeout(() => {
       document.querySelectorAll('nav a, .dropdown-menu a').forEach(link => {
         const href = link.getAttribute('href');
-        if (href && href.includes('/pages/') && !PUBLIC_PAGES.some(p => href.endsWith(p)) && !href.endsWith('index.html')) {
+        if (href && href.includes('') && !PUBLIC_PAGES.some(p => href.endsWith(p)) && !href.endsWith('index.html')) {
           link.addEventListener('click', handleRestrictedAccess);
         }
       });
@@ -174,13 +174,13 @@ window.addEventListener('load', () => {
       btnLogout.textContent = 'Đăng xuất';
       btnLogout.addEventListener('click', () => {
         localStorage.removeItem('currentUser');
-        window.location.replace('/pages/index.html');
+        window.location.replace('index.html');
       });
     } else {
       btnLogout.textContent = 'Đăng nhập';
       btnLogout.className = 'btn-logout bg-success';
       btnLogout.addEventListener('click', () => {
-        window.location.href = '/pages/index.html';
+        window.location.href = 'index.html';
       });
     }
   }
@@ -190,7 +190,7 @@ window.addEventListener('load', () => {
   if (logo && !logo.querySelector('a') && !logo.getAttribute('onclick')) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', () => {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 });
@@ -456,7 +456,7 @@ window.addEventListener('load', () => {
     const link = document.createElement('link');
     link.id = 'voice-assistant-style';
     link.rel = 'stylesheet';
-    link.href = '/assets/css/voice-assistant.css';
+    link.href = 'assets/css/voice-assistant.css';
     document.head.appendChild(link);
   }
 
@@ -464,7 +464,7 @@ window.addEventListener('load', () => {
   if (!document.getElementById('voice-assistant-script')) {
     const script = document.createElement('script');
     script.id = 'voice-assistant-script';
-    script.src = '/assets/js/voice-assistant.js';
+    script.src = 'assets/js/voice-assistant.js';
     document.body.appendChild(script);
   }
 });
@@ -472,7 +472,7 @@ window.addEventListener('load', () => {
 // =============================================================================
 // TABLE COLUMN FILTER SYSTEM (Google Sheets Style)
 // =============================================================================
-(function() {
+(function () {
   const ddcFilterState = {
     sortCol: null,         // number (index) or string (key)
     sortDir: null,         // 'asc' | 'desc'
@@ -497,26 +497,26 @@ window.addEventListener('load', () => {
         ddcFilterState.lastRenderInput = tableData;
       }
       const originalRenderTable = window.renderTable;
-      window.renderTable = function(data, resetPage) {
+      window.renderTable = function (data, resetPage) {
         let rawData = data || tableData;
         if (rawData && rawData.length > 0) {
           ddcFilterState.lastRenderInput = rawData;
-          
+
           const headerRow = rawData[0];
           let rowsToProcess = rawData.slice(1);
-          
+
           // Apply column filters
           rowsToProcess = ddcApplyColumnFiltersXG(rowsToProcess, headerRow);
-          
+
           // Apply sorting
           rowsToProcess = ddcApplySortingXG(rowsToProcess, headerRow);
-          
+
           const processedData = [headerRow, ...rowsToProcess];
           originalRenderTable.call(this, processedData, resetPage);
         } else {
           originalRenderTable.call(this, data, resetPage);
         }
-        
+
         // Inject filter icons
         ddcInjectFilterIcons(table, isPL);
       };
@@ -524,33 +524,33 @@ window.addEventListener('load', () => {
       isPatched = true;
       console.log("Wrapped renderTable for XG/Tole successfully.");
     }
-    
+
     if (isPL && typeof window.renderTable === 'function' && !window.renderTable.isWrapped) {
       if (typeof filteredData !== 'undefined' && filteredData && filteredData.length > 0) {
         ddcFilterState.lastRenderInput = filteredData;
       }
       const originalRenderTable = window.renderTable;
-      window.renderTable = function() {
+      window.renderTable = function () {
         const rawData = filteredData || [];
         if (rawData && rawData.length > 0) {
           ddcFilterState.lastRenderInput = rawData;
-          
+
           // Apply column filters
           let processedData = ddcApplyColumnFiltersPL(rawData);
-          
+
           // Apply sorting
           processedData = ddcApplySortingPL(processedData);
-          
+
           const tempFiltered = filteredData;
           filteredData = processedData;
-          
+
           originalRenderTable.apply(this, arguments);
-          
+
           filteredData = tempFiltered;
         } else {
           originalRenderTable.apply(this, arguments);
         }
-        
+
         // Inject filter icons
         ddcInjectFilterIcons(table, isPL);
       };
@@ -563,7 +563,7 @@ window.addEventListener('load', () => {
     if (isXG) {
       if (typeof window.renderTableData === 'function' && !window.renderTableData.isWrapped) {
         const originalRenderTableData = window.renderTableData;
-        window.renderTableData = function(data) {
+        window.renderTableData = function (data) {
           const result = originalRenderTableData.call(this, data);
           ddcInjectFilterIcons(table, isPL);
           return result;
@@ -576,7 +576,7 @@ window.addEventListener('load', () => {
     if (isPL) {
       if (typeof window.renderTableBody === 'function' && !window.renderTableBody.isWrapped) {
         const originalRenderTableBody = window.renderTableBody;
-        window.renderTableBody = function() {
+        window.renderTableBody = function () {
           const result = originalRenderTableBody.apply(this, arguments);
           ddcInjectFilterIcons(table, isPL);
           return result;
@@ -586,7 +586,7 @@ window.addEventListener('load', () => {
       }
       if (typeof window.renderTableData === 'function' && !window.renderTableData.isWrapped) {
         const originalRenderTableData = window.renderTableData;
-        window.renderTableData = function(data) {
+        window.renderTableData = function (data) {
           const result = originalRenderTableData.call(this, data);
           ddcInjectFilterIcons(table, isPL);
           return result;
@@ -595,7 +595,7 @@ window.addEventListener('load', () => {
         console.log("Wrapped renderTableData for PL successfully.");
       }
     }
-    
+
     // Default to hidden or restored filters visibility
     if (!table.isFiltersInitialized) {
       const path = window.location.pathname;
@@ -676,9 +676,9 @@ window.addEventListener('load', () => {
     if (!table) return '';
     const theadThs = table.querySelectorAll('thead th');
     if (theadThs.length === 0) return '';
-    
+
     const startIdx = (isPL || theadThs[0].querySelector('input[type="checkbox"]')) ? 1 : 0;
-    
+
     // Check if there is a synthetic STT column
     let hasSyntheticSTT = false;
     if (!isPL && typeof tableData !== 'undefined' && tableData && tableData[0]) {
@@ -690,11 +690,11 @@ window.addEventListener('load', () => {
         }
       }
     }
-    
+
     const shift = hasSyntheticSTT ? 1 : 0;
     const colIdx = isPL ? TABLE_COLUMNS.indexOf(colKeyOrIdx) : parseInt(colKeyOrIdx, 10);
     const targetIdx = colIdx + startIdx + shift;
-    
+
     if (colIdx >= 0 && theadThs[targetIdx]) {
       const th = theadThs[targetIdx];
       const wrapper = th.querySelector('.ddc-th-wrapper');
@@ -712,10 +712,10 @@ window.addEventListener('load', () => {
   function ddcParseNumber(value) {
     if (value === null || value === undefined) return NaN;
     if (typeof value === 'number') return value;
-    
+
     let str = String(value).trim();
     if (str === '') return NaN;
-    
+
     const hasComma = str.includes(',');
     const hasDot = str.includes('.');
     if (hasComma && hasDot) {
@@ -739,7 +739,7 @@ window.addEventListener('load', () => {
         str = str.replace(/\./g, '');
       }
     }
-    
+
     str = str.replace(/[^0-9\.\-]/g, '');
     const num = parseFloat(str);
     return isNaN(num) ? NaN : num;
@@ -747,9 +747,9 @@ window.addEventListener('load', () => {
 
   function ddcGetFilteredRowsExcept(colKeyOrIdx, isPL) {
     if (!ddcFilterState.lastRenderInput || ddcFilterState.lastRenderInput.length === 0) return [];
-    
+
     let rows = isPL ? ddcFilterState.lastRenderInput : ddcFilterState.lastRenderInput.slice(1);
-    
+
     // 1. Apply column checkbox filters (except current column)
     Object.keys(ddcFilterState.columnFilters).forEach(key => {
       if (key === String(colKeyOrIdx)) return; // Skip current column
@@ -761,7 +761,7 @@ window.addEventListener('load', () => {
         });
       }
     });
-    
+
     // 2. Apply date range filters (except current column)
     Object.keys(ddcFilterState.dateFilters).forEach(key => {
       if (key === String(colKeyOrIdx)) return; // Skip current column
@@ -769,9 +769,9 @@ window.addEventListener('load', () => {
       if (range) {
         const start = ddcParseLocalISO(range.startStr);
         const end = ddcParseLocalISO(range.endStr);
-        if (start) start.setHours(0,0,0,0);
-        if (end) end.setHours(23,59,59,999);
-        
+        if (start) start.setHours(0, 0, 0, 0);
+        if (end) end.setHours(23, 59, 59, 999);
+
         rows = rows.filter(row => {
           const cellVal = isPL ? row[key] : row[parseInt(key, 10)];
           const cellDate = ddcParseRowDate(cellVal);
@@ -782,29 +782,29 @@ window.addEventListener('load', () => {
         });
       }
     });
-    
+
     return rows;
   }
 
   function ddcCompare(a, b, colKeyOrIdx, isPL) {
     let valA = isPL ? a[colKeyOrIdx] : a[colKeyOrIdx];
     let valB = isPL ? b[colKeyOrIdx] : b[colKeyOrIdx];
-    
+
     const aEmpty = valA === null || valA === undefined || String(valA).trim() === '';
     const bEmpty = valB === null || valB === undefined || String(valB).trim() === '';
-    
+
     if (aEmpty && bEmpty) return 0;
     if (aEmpty) return 1;
     if (bEmpty) return -1;
 
     const headerText = ddcGetColumnHeaderFromTable(colKeyOrIdx, isPL).toLowerCase();
-    const isStrictNumeric = headerText.includes('thời gian lưu kho') || 
-                            headerText.includes('khối lượng') || 
-                            headerText.includes('trọng lượng') || 
-                            headerText.includes('số lượng') || 
-                            headerText.includes('id') || 
-                            headerText.includes('stt') || 
-                            headerText === 'stt';
+    const isStrictNumeric = headerText.includes('thời gian lưu kho') ||
+      headerText.includes('khối lượng') ||
+      headerText.includes('trọng lượng') ||
+      headerText.includes('số lượng') ||
+      headerText.includes('id') ||
+      headerText.includes('stt') ||
+      headerText === 'stt';
 
     if (isStrictNumeric) {
       const numA = ddcParseNumber(valA);
@@ -868,7 +868,7 @@ window.addEventListener('load', () => {
 
   function ddcApplyColumnFiltersXG(rows, header) {
     let filtered = [...rows];
-    
+
     // Checkboxes
     Object.keys(ddcFilterState.columnFilters).forEach(colIdxKey => {
       const colIdx = parseInt(colIdxKey, 10);
@@ -888,9 +888,9 @@ window.addEventListener('load', () => {
       if (range) {
         const start = ddcParseLocalISO(range.startStr);
         const end = ddcParseLocalISO(range.endStr);
-        if (start) start.setHours(0,0,0,0);
-        if (end) end.setHours(23,59,59,999);
-        
+        if (start) start.setHours(0, 0, 0, 0);
+        if (end) end.setHours(23, 59, 59, 999);
+
         filtered = filtered.filter(row => {
           const cellVal = row[colIdx];
           const cellDate = ddcParseRowDate(cellVal);
@@ -921,7 +921,7 @@ window.addEventListener('load', () => {
 
   function ddcApplyColumnFiltersPL(rows) {
     let filtered = [...rows];
-    
+
     // Checkboxes
     Object.keys(ddcFilterState.columnFilters).forEach(colKey => {
       const allowedSet = ddcFilterState.columnFilters[colKey];
@@ -939,9 +939,9 @@ window.addEventListener('load', () => {
       if (range) {
         const start = ddcParseLocalISO(range.startStr);
         const end = ddcParseLocalISO(range.endStr);
-        if (start) start.setHours(0,0,0,0);
-        if (end) end.setHours(23,59,59,999);
-        
+        if (start) start.setHours(0, 0, 0, 0);
+        if (end) end.setHours(23, 59, 59, 999);
+
         filtered = filtered.filter(row => {
           const cellVal = row[colKey];
           const cellDate = ddcParseRowDate(cellVal);
@@ -974,9 +974,9 @@ window.addEventListener('load', () => {
   function ddcInjectFilterIcons(table, isPL) {
     const theadThs = table.querySelectorAll('thead th');
     if (!theadThs || theadThs.length === 0) return;
-    
+
     const startIdx = (isPL || theadThs[0].querySelector('input[type="checkbox"]')) ? 1 : 0;
-    
+
     // Check if there is a synthetic STT column
     let hasSyntheticSTT = false;
     if (!isPL && typeof tableData !== 'undefined' && tableData && tableData[0]) {
@@ -988,10 +988,10 @@ window.addEventListener('load', () => {
         }
       }
     }
-    
+
     theadThs.forEach((th, idx) => {
       if (idx < startIdx) return;
-      
+
       // Skip synthetic STT column
       if (hasSyntheticSTT && idx === startIdx) {
         // If there's an old filter button, remove it
@@ -999,32 +999,32 @@ window.addEventListener('load', () => {
         if (oldBtn) oldBtn.remove();
         return;
       }
-      
+
       const resizer = th.querySelector('.col-resizer');
-      
+
       let wrapper = th.querySelector('.ddc-th-wrapper');
       if (!wrapper) {
         wrapper = document.createElement('div');
         wrapper.className = 'ddc-th-wrapper';
-        
+
         const childNodes = Array.from(th.childNodes);
         childNodes.forEach(node => {
           if (node !== resizer) {
             wrapper.appendChild(node);
           }
         });
-        
+
         if (resizer) {
           th.insertBefore(wrapper, resizer);
         } else {
           th.appendChild(wrapper);
         }
       }
-      
+
       const shift = hasSyntheticSTT ? 1 : 0;
       const dataColIndex = idx - startIdx - shift;
       const colKeyOrIdx = isPL ? TABLE_COLUMNS[dataColIndex] : String(dataColIndex);
-      
+
       let filterBtn = wrapper.querySelector('.ddc-filter-btn');
       if (!filterBtn) {
         filterBtn = document.createElement('button');
@@ -1036,7 +1036,7 @@ window.addEventListener('load', () => {
           </svg>
         `;
         wrapper.appendChild(filterBtn);
-        
+
         filterBtn.addEventListener('click', (e) => {
           e.preventDefault();
           e.stopPropagation();
@@ -1053,7 +1053,7 @@ window.addEventListener('load', () => {
           ddcOpenFilterDropdown(filterBtn, dataColIndex, isPL);
         });
       }
-      
+
       const hasFilter = !!ddcFilterState.columnFilters[colKeyOrIdx] || !!ddcFilterState.dateFilters[colKeyOrIdx];
       if (hasFilter) {
         filterBtn.classList.add('active');
@@ -1150,7 +1150,7 @@ window.addEventListener('load', () => {
       const str = ddcGetCellString(row, colKeyOrIdx, isPL);
       uniqueValuesSet.add(str);
     });
-    
+
     const headerText = ddcGetColumnHeaderFromTable(colKeyOrIdx, isPL).toLowerCase();
     const isStrictNumeric = headerText.includes('thời gian lưu kho') || headerText.includes('khối lượng') || headerText.includes('trọng lượng') || headerText.includes('số lượng');
 
@@ -1175,7 +1175,7 @@ window.addEventListener('load', () => {
 
     const activeFilterSet = ddcFilterState.columnFilters[colKeyOrIdx];
     const tempCheckedSet = activeFilterSet ? new Set(activeFilterSet) : new Set(domainUniqueValues);
-    
+
     const isDateCol = headerText.includes('ngày') && !headerText.includes('thời gian lưu kho');
 
     let dateRangeHtml = '';
@@ -1199,7 +1199,7 @@ window.addEventListener('load', () => {
     if (isDateCol) {
       dropdown.classList.add('ddc-date-dropdown');
     }
-    
+
     const dropdownWidth = isDateCol ? 320 : 250;
     let left = window.scrollX + rect.left - (dropdownWidth - 30) + rect.width;
     if (left < 10) left = 10;
@@ -1256,13 +1256,13 @@ window.addEventListener('load', () => {
     function renderCheckboxes(filterText = '') {
       listContainer.innerHTML = '';
       const search = filterText.toLowerCase().trim();
-      
+
       uniqueValues.forEach((val, index) => {
         const displayVal = val === '' ? '(Trống)' : val;
         if (search && !displayVal.toLowerCase().includes(search)) return;
-        
+
         const isChecked = tempCheckedSet.has(val);
-        
+
         const item = document.createElement('label');
         item.className = 'ddc-filter-item';
         item.innerHTML = `
@@ -1281,7 +1281,7 @@ window.addEventListener('load', () => {
           }
         });
       });
-      
+
       if (listContainer.children.length === 0) {
         listContainer.innerHTML = '<div style="font-size: 12px; color: #94a3b8; text-align: center; padding: 10px;">Không có kết quả</div>';
       }
@@ -1372,7 +1372,7 @@ window.addEventListener('load', () => {
           ddcFilterState.columnFilters[colKeyOrIdx] = new Set(tempCheckedSet);
         }
       }
-      
+
       ddcCloseDropdowns();
       ddcTriggerReRender(isPL);
     });
@@ -1486,13 +1486,13 @@ window.addEventListener('load', () => {
       `;
       document.body.appendChild(alertBox);
     }
-    
+
     alertBox.querySelector('.ddc-alert-msg').textContent = message;
-    
+
     // Show toast
     alertBox.style.transform = 'translateY(0)';
     alertBox.style.opacity = '1';
-    
+
     // Hide after 3.5 seconds
     clearTimeout(alertBox.timeoutId);
     alertBox.timeoutId = setTimeout(() => {

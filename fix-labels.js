@@ -75,5 +75,5 @@ function fixFile(file) {
   console.log('Fixed', file);
 }
 
-fixFile('C:/Users/benhhc/Desktop/web/assets/js/tole/tole-nhap.js');
-fixFile('C:/Users/benhhc/Desktop/web/assets/js/tole/tole-xuat.js');
+fixFile('C:/Users/benhhc/Desktop/webassets/js/tole/tole-nhap.js');
+fixFile('C:/Users/benhhc/Desktop/webassets/js/tole/tole-xuat.js');

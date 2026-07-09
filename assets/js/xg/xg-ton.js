@@ -160,7 +160,7 @@ window.addEventListener('load', () => {
   if (btnLogout && currentUser) {
     btnLogout.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      window.location.replace('/pages/index.html');
+      window.location.replace('index.html');
     });
   }
 
@@ -169,7 +169,7 @@ window.addEventListener('load', () => {
   if (logo) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', () => {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 
@@ -297,17 +297,17 @@ function formatCellQuantityOrWeight(cell, header) {
       return parsedNum.toString();
     }
   }
-  const isQtyOrWeight = cleanHeader.includes('so luong') || 
-                        cleanHeader.includes('trong luong') || 
-                        cleanHeader.includes('khoi luong') || 
-                        cleanHeader.includes('so kg') || 
-                        cleanHeader.includes('so m') || 
-                        cleanHeader.includes('tan') || 
-                        cleanHeader.includes('ton') || 
-                        cleanHeader.includes('quy doi') || 
-                        cleanHeader.includes('chieu dai') ||
-                        cleanHeader === 'kg' ||
-                        cleanHeader === 'm';
+  const isQtyOrWeight = cleanHeader.includes('so luong') ||
+    cleanHeader.includes('trong luong') ||
+    cleanHeader.includes('khoi luong') ||
+    cleanHeader.includes('so kg') ||
+    cleanHeader.includes('so m') ||
+    cleanHeader.includes('tan') ||
+    cleanHeader.includes('ton') ||
+    cleanHeader.includes('quy doi') ||
+    cleanHeader.includes('chieu dai') ||
+    cleanHeader === 'kg' ||
+    cleanHeader === 'm';
   if (isQtyOrWeight) {
     const parsedNum = parseNumericInput(cell);
     if (parsedNum !== null && !isNaN(parsedNum)) {
@@ -907,7 +907,7 @@ function showRowDetail(row) {
 
   const cells = Array.from(row.cells).map(td => td.textContent.trim());
   const modalBody = document.getElementById('rowDetailContent');
-  
+
   if (!modalBody) return;
 
   let html = `
@@ -916,20 +916,20 @@ function showRowDetail(row) {
       Dữ liệu chỉ sửa đổi tạm thời để đối chiếu, <strong>không được lưu</strong> vào hệ thống.
     </div>
     <div class="detail-grid">`;
-  
+
   // Decide how to display based on row type
   const isSummary = row.classList.contains('group-summary-row');
-  
+
   headers.forEach((header, index) => {
     const value = cells[index];
-    
+
     // For summary rows, skip empty values to keep it clean
     if (isSummary && (!value || value === '')) return;
 
     if (header) {
       // Use textarea for contents that look like they might be long (e.g., > 50 chars)
       const isLongText = (value && String(value).length > 50);
-      const inputHtml = isLongText 
+      const inputHtml = isLongText
         ? `<textarea class="form-control detail-input" rows="2">${value || ''}</textarea>`
         : `<input type="text" class="form-control detail-input" value="${value || ''}" placeholder="---">`;
 

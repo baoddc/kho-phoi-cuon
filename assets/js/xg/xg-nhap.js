@@ -361,7 +361,7 @@ window.addEventListener('load', () => {
   if (btnLogout && currentUser) {
     btnLogout.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      window.location.replace('/pages/index.html');
+      window.location.replace('index.html');
     });
   }
 
@@ -370,7 +370,7 @@ window.addEventListener('load', () => {
   if (logo) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', () => {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 
@@ -545,16 +545,16 @@ function formatCellQuantityOrWeight(cell, header) {
       return parsedNum.toString();
     }
   }
-  const isQtyOrWeight = cleanHeader.includes('so luong') || 
-                        cleanHeader.includes('trong luong') || 
-                        cleanHeader.includes('khoi luong') || 
-                        cleanHeader.includes('so kg') || 
-                        cleanHeader.includes('so m') || 
-                        cleanHeader.includes('tan') || 
-                        cleanHeader.includes('ton') || 
-                        cleanHeader.includes('quy doi') || 
-                        cleanHeader === 'kg' ||
-                        cleanHeader === 'm';
+  const isQtyOrWeight = cleanHeader.includes('so luong') ||
+    cleanHeader.includes('trong luong') ||
+    cleanHeader.includes('khoi luong') ||
+    cleanHeader.includes('so kg') ||
+    cleanHeader.includes('so m') ||
+    cleanHeader.includes('tan') ||
+    cleanHeader.includes('ton') ||
+    cleanHeader.includes('quy doi') ||
+    cleanHeader === 'kg' ||
+    cleanHeader === 'm';
   if (isQtyOrWeight) {
     const parsedNum = parseNumericInput(cell);
     if (parsedNum !== null && !isNaN(parsedNum)) {

@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const dir = 'C:/Users/benhhc/Desktop/web/assets/js';
+const dir = 'C:/Users/benhhc/Desktop/webassets/js';
 
 function walk(dir) {
   let results = [];

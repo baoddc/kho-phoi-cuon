@@ -103,7 +103,7 @@ function parseRowDate(raw) {
       let p2 = parseInt(m[2], 10);
       let y = parseInt(m[3], 10);
       if (y < 100) y += y < 50 ? 2000 : 1900;
-      
+
       let d, mo;
       // Nếu phần thứ 2 lớn hơn 12, chắc chắn đó là Ngày (định dạng MM/DD/YYYY)
       if (p2 > 12) {
@@ -195,7 +195,7 @@ function getDefaultFromDate() {
 window.addEventListener('load', () => {
   const currentUser = localStorage.getItem('currentUser');
   if (!currentUser) {
-    window.location.href = '/pages/index.html';
+    window.location.href = 'index.html';
     return;
   }
 
@@ -208,7 +208,7 @@ window.addEventListener('load', () => {
   if (btnLogout) {
     btnLogout.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      window.location.replace('/pages/index.html');
+      window.location.replace('index.html');
     });
   }
 
@@ -217,7 +217,7 @@ window.addEventListener('load', () => {
   if (logo) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', () => {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 
@@ -302,7 +302,7 @@ function calculateInventoryBegin() {
   fromDate.setHours(0, 0, 0, 0);
 
   const dateColIndex = 0;
-  
+
   // Xác định động cột số lượng tồn để tránh lỗi hardcode
   const tonHeaders = tonData[0] || [];
   let qtyColIndex = 7; // Mặc định cột 8 (index 7)
@@ -361,7 +361,7 @@ function calculateRollMetrics() {
   const toDate = toDateInput ? new Date(toDateInput) : null;
 
   if (fromDate) fromDate.setHours(0, 0, 0, 0);
-  
+
   let evaluationEndDate;
   if (toDate) {
     evaluationEndDate = new Date(toDate);
@@ -534,7 +534,7 @@ function processDataAndCreateCharts() {
   // Dynamic indexes for material code, material name and workshop
   const importMaColIndex = findColIndex(importHeaders, ['mã vật tư', 'ma vat tu', 'mã hàng', 'ma hang']);
   const importTenColIndex = findColIndex(importHeaders, ['tên vật tư', 'ten vat tu', 'tên hàng', 'ten hang']);
-  
+
   const exportMaColIndex = findColIndex(exportHeaders, ['mã vật tư', 'ma vat tu', 'mã hàng', 'ma hang']);
   const exportTenColIndex = findColIndex(exportHeaders, ['tên vật tư', 'ten vat tu', 'tên hàng', 'ten hang']);
   const exportXuongColIndex = findColIndex(exportHeaders, ['tên công trình', 'ten cong trinh', 'đối tác', 'nơi nhận', 'ncc']);
@@ -789,7 +789,7 @@ function processDataAndCreateCharts() {
   // Calculate ending balance for each month working backwards from totalCurrentStock (the stock today)
   const globalTrendBalances = {};
   let balance = totalCurrentStock;
-  
+
   for (let i = globalMonths.length - 1; i >= 0; i--) {
     const m = globalMonths[i];
     globalTrendBalances[m] = balance;
@@ -800,7 +800,7 @@ function processDataAndCreateCharts() {
   // Calculate actual inventory begin (đầu kì) and end (cuối kì) for the selected range
   let inventoryBegin = 0;
   let inventoryEnd = 0;
-  
+
   const fromDateInput = document.getElementById('fromDate')?.value;
   const toDateInput = document.getElementById('toDate')?.value;
   const isFiltered = !!(fromDateInput || toDateInput);
@@ -864,7 +864,7 @@ function processDataAndCreateCharts() {
 
   // Create charts
   createBarChart(labels, importValues, exportValues);
-  
+
   // Pie chart with dynamic toggle
   const pieSelect = document.getElementById('pieChartSelect');
   if (pieSelect) {

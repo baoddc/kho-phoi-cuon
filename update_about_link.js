@@ -22,17 +22,17 @@ htmlFiles.forEach(filePath => {
   let content = fs.readFileSync(filePath, 'utf8');
   let originalContent = content;
 
-  // We look for the <header> block and replace href="#blog" with href="/pages/about.html"
+  // We look for the <header> block and replace href="#blog" with href="about.html"
   const headerMatch = content.match(/<header>([\s\S]*?)<\/header>/);
   if (headerMatch) {
     let headerHtml = headerMatch[0];
-    let newHeaderHtml = headerHtml.replace(/href="#blog"/g, 'href="/pages/about.html"');
-    
+    let newHeaderHtml = headerHtml.replace(/href="#blog"/g, 'href="about.html"');
+
     // Also fix the active state if we are inside about.html
     if (filePath.endsWith('about.html')) {
-      newHeaderHtml = newHeaderHtml.replace(/href="\/pages\/about\.html">ABOUT<\/a>/g, 'href="/pages/about.html" class="active-nav" style="color: #00d9ff;">GIỚI THIỆU</a>');
+      newHeaderHtml = newHeaderHtml.replace(/href="\/pages\/about\.html">ABOUT<\/a>/g, 'href="about.html" class="active-nav" style="color: #00d9ff;">GIỚI THIỆU</a>');
     }
-    
+
     content = content.replace(headerHtml, newHeaderHtml);
   }
 

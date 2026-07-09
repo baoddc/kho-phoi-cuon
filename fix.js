@@ -1,10 +1,10 @@
 const fs = require('fs');
 const files = [
-  'C:/Users/benhhc/Desktop/web/assets/js/pl/pl-phieu-in.js',
-  'C:/Users/benhhc/Desktop/web/assets/js/tole/tole-bieu-do.js',
-  'C:/Users/benhhc/Desktop/web/assets/js/tole/tole-ton.js',
-  'C:/Users/benhhc/Desktop/web/assets/js/xg/xg-ton.js',
-  'C:/Users/benhhc/Desktop/web/assets/js/xg/xg-xuat.js'
+  'C:/Users/benhhc/Desktop/webassets/js/pl/pl-phieu-in.js',
+  'C:/Users/benhhc/Desktop/webassets/js/tole/tole-bieu-do.js',
+  'C:/Users/benhhc/Desktop/webassets/js/tole/tole-ton.js',
+  'C:/Users/benhhc/Desktop/webassets/js/xg/xg-ton.js',
+  'C:/Users/benhhc/Desktop/webassets/js/xg/xg-xuat.js'
 ];
 
 files.forEach(f => {

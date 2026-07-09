@@ -263,7 +263,7 @@ function formatNumber(num) {
 function parseNumber(value) {
   if (value === null || value === undefined || value === '') return null;
   if (typeof value === 'number') return value;
-  
+
   let text = value.toString().replace(/ kg/g, '').trim();
   text = text.replace(/\s+/g, '');
 
@@ -2006,7 +2006,7 @@ function initApp() {
     // Kiểm tra xem đã đăng nhập chưa, nếu chưa thì quay về trang đăng nhập
     const currentUser = localStorage.getItem('currentUser');
     if (!currentUser) {
-      window.location.href = '/pages/index.html';
+      window.location.href = 'index.html';
       return;
     }
 
@@ -2075,7 +2075,7 @@ function initApp() {
     document.getElementById('btnLogout')?.addEventListener('click', () => {
       if (confirm('Bạn có chắc chắn muốn đăng xuất?')) {
         localStorage.removeItem('currentUser');
-        window.location.href = '/pages/index.html';
+        window.location.href = 'index.html';
       }
     });
 
@@ -2084,7 +2084,7 @@ function initApp() {
     if (logo) {
       logo.style.cursor = 'pointer';
       logo.addEventListener('click', function () {
-        window.location.href = '/pages/home.html';
+        window.location.href = 'home.html';
       });
     }
 

@@ -272,13 +272,13 @@ class DashboardManager {
                 btnLogout.textContent = 'Đăng xuất';
                 btnLogout.onclick = () => {
                     localStorage.removeItem('currentUser');
-                    window.location.replace('/pages/index.html');
+                    window.location.replace('index.html');
                 };
             } else {
                 btnLogout.textContent = 'Đăng nhập';
                 btnLogout.className = 'btn-logout bg-success';
                 btnLogout.onclick = () => {
-                    window.location.href = '/pages/index.html';
+                    window.location.href = 'index.html';
                 };
             }
         }

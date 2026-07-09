@@ -122,7 +122,7 @@
     if (!sheetConfig) throw new Error(`Không tìm thấy cấu hình cho loại: ${sheetType}`);
     const sheetId = sheetConfig.id;
     const gid = sheetConfig.gids[gidType];
-    
+
     const cacheKey = `${sheetId}_${gid}`;
     if (dataCache[cacheKey]) return dataCache[cacheKey];
 
@@ -131,14 +131,14 @@
       const url = `https://docs.google.com/spreadsheets/d/${sheetId}/export?format=xlsx&gid=${gid}`;
       const response = await fetch(url);
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      
+
       const arrayBuffer = await response.arrayBuffer();
       const workbook = XLSX.read(arrayBuffer, { type: 'array' });
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      
+
       const rawData = XLSX.utils.sheet_to_json(worksheet, { header: 1, raw: false });
-      
+
       // Clean data and apply formatting
       const cleaned = [];
       if (rawData.length > 0) {
@@ -153,15 +153,15 @@
             idCols.push(idx);
           }
         });
-        
+
         for (let i = 1; i < rawData.length; i++) {
           const row = rawData[i];
           if (!row || row.length === 0) continue;
-          
+
           // Check if row is entirely empty
           const isEmpty = row.every(cell => cell === undefined || cell === null || String(cell).trim() === '');
           if (isEmpty) continue;
-          
+
           // Skip #REF rows
           const hasRef = row.some(cell => String(cell || '').toUpperCase().includes('#REF'));
           if (hasRef) continue;
@@ -176,7 +176,7 @@
               }
             }
           });
-          
+
           // Format Date columns
           dateCols.forEach(idx => {
             if (row[idx] !== undefined && row[idx] !== null && row[idx] !== '') {
@@ -199,14 +199,14 @@
   // Text-To-Speech (TTS) response
   function speak(text) {
     if (!synth) return;
-    
+
     // Stop any active speech
     synth.cancel();
-    
+
     // Remove emojis or special symbols for cleaner speech
     const cleanText = text.replace(/[\u2600-\u27BF]|[\uE000-\uF8FF]|\uD83C[\uDC00-\uDFFF]|\uD83D[\uDC00-\uDFFF]|[\u2011-\u26FF]|\uD83E[\uDD10-\uDDFF]/g, '')
-                          .replace(/\*/g, '')
-                          .replace(/-\s+/g, '');
+      .replace(/\*/g, '')
+      .replace(/-\s+/g, '');
 
     const utterance = new SpeechSynthesisUtterance(cleanText);
     if (viVoice) utterance.voice = viVoice;
@@ -301,7 +301,7 @@
     // Register Event Listeners
     micBtn.addEventListener('click', toggleListening);
     document.getElementById('vaCloseBtn').addEventListener('click', togglePanel);
-    
+
     // Chips click
     document.querySelectorAll('.va-chip').forEach(chip => {
       chip.addEventListener('click', () => {
@@ -359,11 +359,11 @@
     const msg = document.createElement('div');
     msg.className = 'va-msg bot';
     let content = `<span>${text}</span>`;
-    
+
     if (dataBoxText) {
       content += `<div class="va-data-box">${dataBoxText}</div>`;
     }
-    
+
     content += `<span class="va-msg-time">${getCurrentTime()}</span>`;
     msg.innerHTML = content;
     chatBody.appendChild(msg);
@@ -408,7 +408,7 @@
       if (event.error === 'no-speech') errorMsg = "Không nghe thấy tiếng nói. Bạn vui lòng thử lại.";
       if (event.error === 'audio-capture') errorMsg = "Không tìm thấy thiết bị thu âm (Microphone).";
       if (event.error === 'not-allowed') errorMsg = "Quyền truy cập Microphone bị từ chối.";
-      
+
       addBotMessage(errorMsg);
       speak(errorMsg);
     };
@@ -452,7 +452,7 @@
   }
 
   // ==================== VOICE INTENT PARSING ====================
-  
+
   // Normalization helper
   function normalizeText(text) {
     return text.toLowerCase()
@@ -476,7 +476,7 @@
       } else {
         query = query.substring(4).trim();
       }
-      
+
       if (!query) {
         const reply = "Vui lòng nhập từ khóa tìm kiếm (Ví dụ: tồn 3X451VN)";
         addBotMessage(reply);
@@ -498,7 +498,7 @@
       } else {
         query = query.substring(5).trim();
       }
-      
+
       if (!query) {
         const reply = "Vui lòng nhập từ khóa để tìm kiếm lịch sử nhập kho (Ví dụ: nhập 3X451VN)";
         addBotMessage(reply);
@@ -520,7 +520,7 @@
       } else {
         query = query.substring(5).trim();
       }
-      
+
       if (!query) {
         const reply = "Vui lòng nhập từ khóa để tìm kiếm lịch sử xuất kho (Ví dụ: xuất 3X451VN)";
         addBotMessage(reply);
@@ -533,62 +533,62 @@
     }
 
     const norm = normalizeText(cleanText);
- 
+
     statusDot.className = 'va-status-dot listening';
     statusText.textContent = 'Đang xử lý...';
 
     try {
       // 1. Navigation Commands
       if (norm.includes('nhap xa go') || norm.includes('trang nhap xa go')) {
-        handleNavigation('/pages/xg/xg-nhap.html', "Nhập xà gồ");
+        handleNavigation('xg-nhap.html', "Nhập xà gồ");
         return;
       }
       if (norm.includes('xuat xa go') || norm.includes('trang xuat xa go')) {
-        handleNavigation('/pages/xg/xg-xuat.html', "Xuất xà gồ");
+        handleNavigation('xg-xuat.html', "Xuất xà gồ");
         return;
       }
       if (norm.includes('ton xa go') || norm.includes('trang ton xa go')) {
-        handleNavigation('/pages/xg/xg-ton.html', "Tồn xà gồ");
+        handleNavigation('xg-ton.html', "Tồn xà gồ");
         return;
       }
       if (norm.includes('bieu do xa go')) {
-        handleNavigation('/pages/xg/xg-bieu-do.html', "Biểu đồ xà gồ");
+        handleNavigation('xg-bieu-do.html', "Biểu đồ xà gồ");
         return;
       }
       if (norm.includes('nhap tole') || norm.includes('trang nhap tole')) {
-        handleNavigation('/pages/tole/tole-nhap.html', "Nhập tole");
+        handleNavigation('tole-nhap.html', "Nhập tole");
         return;
       }
       if (norm.includes('xuat tole') || norm.includes('trang xuat tole')) {
-        handleNavigation('/pages/tole/tole-xuat.html', "Xuất tole");
+        handleNavigation('tole-xuat.html', "Xuất tole");
         return;
       }
       if (norm.includes('ton tole') || norm.includes('trang ton tole')) {
-        handleNavigation('/pages/tole/tole-ton.html', "Tồn tole");
+        handleNavigation('tole-ton.html', "Tồn tole");
         return;
       }
       if (norm.includes('bieu do tole')) {
-        handleNavigation('/pages/tole/tole-bieu-do.html', "Biểu đồ tole");
+        handleNavigation('tole-bieu-do.html', "Biểu đồ tole");
         return;
       }
       if (norm.includes('so do kho') || norm.includes('phoi cuon')) {
-        handleNavigation('/pages/5s/5s-so-do-phoi-cuon.html', "Sơ đồ kho phôi cuộn");
+        handleNavigation('5s-so-do-phoi-cuon.html', "Sơ đồ kho phôi cuộn");
         return;
       }
       if (norm.includes('phe lieu') || norm.includes('so do phe lieu')) {
-        handleNavigation('/pages/5s/5s-so-do-phe-lieu.html', "Sơ đồ kho phế liệu");
+        handleNavigation('5s-so-do-phe-lieu.html', "Sơ đồ kho phế liệu");
         return;
       }
       if (norm.includes('hse') || norm.includes('trang hse')) {
-        handleNavigation('/pages/5s/hse.html', "HSE");
+        handleNavigation('hse.html', "HSE");
         return;
       }
       if (norm.includes('trang chu') || norm.includes('ve trang chu')) {
-        handleNavigation('/pages/home.html', "Trang chủ");
+        handleNavigation('home.html', "Trang chủ");
         return;
       }
       if (norm.includes('gioi thieu') || norm.includes('ve gioi thieu')) {
-        handleNavigation('/pages/about.html', "Giới thiệu");
+        handleNavigation('about.html', "Giới thiệu");
         return;
       }
 
@@ -610,7 +610,7 @@
         let category = 'all';
         if (norm.includes('xa go')) category = 'xg';
         else if (norm.includes('tole')) category = 'tole';
-        
+
         await handleFindAllQuery(category);
         return;
       }
@@ -626,11 +626,11 @@
           /tồn kho mã số/i, /tồn kho mã/i, /mã số/i, /mã/i, /còn bao nhiêu/i, /bao nhiêu/i,
           /kg/i, /tồn/i, /bao nhiêu/i, /xem/i, /kho/i, /của/i
         ];
-        
+
         stopWords.forEach(pattern => {
           queryCode = queryCode.replace(pattern, '');
         });
-        
+
         queryCode = queryCode.replace(/[?？.,]/g, '').trim();
 
         if (!queryCode) {
@@ -715,7 +715,7 @@
     // 1. Try to find dd/mm/yyyy or dd/mm
     const dateRegex = /(\d{1,2})[\/\-](\d{1,2})(?:[\/\-](\d{2,4}))?/;
     const match = text.match(dateRegex);
-    
+
     if (match) {
       const d = String(parseInt(match[1], 10)).padStart(2, '0');
       const m = String(parseInt(match[2], 10)).padStart(2, '0');
@@ -788,7 +788,7 @@
     if (!suppressNoResultsMessage) {
       addBotMessage(`Đang truy vấn tồn kho cho từ khóa: "${queryCode}"${searchModeText}...`);
     }
-    
+
     // Load both inventory sheets
     let xgTon = [], toleTon = [];
     try {
@@ -806,14 +806,14 @@
     }
 
     const targetNorm = normalizeCode(queryCode);
-    
+
     // Search in sheets
     let results = [];
-    
+
     function searchSheet(sheetData, category) {
       if (!sheetData || sheetData.length < 2) return;
       const headers = sheetData[0];
-      
+
       // Dynamic header mapping
       const codeColIdx = headers.findIndex(h => {
         const normH = normalizeText(h);
@@ -844,7 +844,7 @@
 
       for (let i = 1; i < sheetData.length; i++) {
         const row = sheetData[i];
-        
+
         let projName = '';
         if (projColIdx !== -1 && row[projColIdx]) {
           const val = String(row[projColIdx]).trim();
@@ -858,7 +858,7 @@
             projName = val;
           }
         }
-        
+
         let location = '';
         if (locColIdx !== -1 && row[locColIdx]) {
           const val = String(row[locColIdx]).trim();
@@ -871,7 +871,7 @@
           // Check all columns in the row
           let matchFound = false;
           let matchColDetail = '';
-          
+
           for (let c = 0; c < row.length; c++) {
             const cellVal = String(row[c] || '').trim();
             const cellNorm = normalizeCode(cellVal);
@@ -881,7 +881,7 @@
               break;
             }
           }
-          
+
           if (matchFound) {
             const cellCode = String(row[codeColIdx] || '').trim();
             results.push({
@@ -898,7 +898,7 @@
           // Normal search: only search in code column
           const cellCode = String(row[codeColIdx] || '').trim();
           if (!cellCode) continue;
-          
+
           const cellNorm = normalizeCode(cellCode);
           if (cellNorm && (cellNorm.includes(targetNorm) || targetNorm.includes(cellNorm))) {
             results.push({
@@ -934,7 +934,7 @@
       // Format results
       let responseText = `Đã tìm thấy ${results.length} kết quả phù hợp:\n`;
       let ttsText = "";
-      
+
       let dataBoxContent = `<table class="va-table"><thead><tr><th>Mã (Loại)</th><th>Vị trí</th><th>Số lượng</th><th>Công trình</th></tr></thead><tbody>`;
       results.forEach((item, idx) => {
         const qtyNum = parseFloat(String(item.qty).replace(/[^0-9.-]/g, ''));
@@ -942,19 +942,19 @@
         const detailText = item.matchDetail ? ` (Khớp ${item.matchDetail})` : '';
         const projText = item.projName ? ` - Công trình: ${item.projName}` : ' - Tồn trơn';
         const locText = item.location ? ` - Vị trí: ${item.location}` : '';
-        
+
         responseText += `- [${item.category}] Mã **${item.code}** - ${item.name}: ${locText ? locText.substring(3) + ' - ' : ''}Tồn ${qtyFormatted}${projText}${detailText}\n`;
         const projTableText = item.projName ? item.projName : 'Tồn trơn';
         const locTableText = item.location ? item.location : '-';
         const detailTableText = item.matchDetail ? `<br><small style="color:#64748b; font-size: 0.65rem;">(Khớp ${item.matchDetail})</small>` : '';
         dataBoxContent += `<tr><td>${item.code} (${item.category})${detailTableText}</td><td>${locTableText}</td><td>${qtyFormatted}</td><td>${projTableText}</td></tr>`;
-        
+
         if (idx === 0) {
           ttsText = `${item.category} mã ${item.code} tồn ${qtyFormatted}.`;
         }
       });
       dataBoxContent += `</tbody></table>`;
-      
+
       if (results.length > 1) {
         ttsText = `Đã tìm thấy ${results.length} mặt hàng tương tự.`;
       }
@@ -970,13 +970,13 @@
   async function handleLogQuery(queryCode, type = 'nhap', searchAllColumns = true, suppressNoResultsMessage = false) {
     const typeLabel = type === 'nhap' ? "Nhập" : "Xuất";
     const searchModeText = searchAllColumns ? " (tìm ở tất cả các cột)" : "";
-    
+
     if (!suppressNoResultsMessage) {
       addBotMessage(`Đang truy vấn lịch sử ${typeLabel} kho cho từ khóa: "${queryCode}"${searchModeText}...`);
     }
 
     // Use IIFE-level formatDate helper
-    
+
     // Load both Nhập or Xuất sheets
     let xgData = [], toleData = [];
     try {
@@ -999,7 +999,7 @@
     function searchSheet(sheetData, category) {
       if (!sheetData || sheetData.length < 2) return;
       const headers = sheetData[0];
-      
+
       const dateColIdx = headers.findIndex(h => {
         const normH = normalizeText(h);
         return normH.includes('ngay');
@@ -1101,7 +1101,7 @@
       // Format results
       let responseText = `Đã tìm thấy ${results.length} bản ghi ${typeLabel} kho phù hợp:\n`;
       let ttsText = `Đã tìm thấy ${results.length} bản ghi ${typeLabel} kho.`;
-      
+
       let dataBoxContent = `<table class="va-table"><thead><tr><th>Mã (Loại)</th><th>Ngày</th><th>Số lượng</th><th>Công trình</th></tr></thead><tbody>`;
       results.forEach((item, idx) => {
         const qtyNum = parseFloat(String(item.qty).replace(/[^0-9.-]/g, ''));
@@ -1109,7 +1109,7 @@
         const dateText = item.date ? ` ngày ${item.date}` : '';
         const detailText = item.matchDetail ? ` (Khớp ${item.matchDetail})` : '';
         const projText = item.projName ? ` - Công trình: ${item.projName}` : '';
-        
+
         responseText += `- [${item.category}] Mã **${item.code}** - ${item.name}: ${typeLabel}${dateText} ${qtyFormatted}${projText}${detailText}\n`;
         const detailTableText = item.matchDetail ? `<br><small style="color:#64748b; font-size: 0.65rem;">(Khớp ${item.matchDetail})</small>` : '';
         dataBoxContent += `<tr><td>${item.code} (${item.category})${detailTableText}</td><td>${item.date || ''}</td><td>${qtyFormatted}</td><td>${item.projName || ''}</td></tr>`;
@@ -1122,7 +1122,7 @@
       return results.length;
     }
   }
- 
+
   // Handle Find All Query
   async function handleFindAllQuery(category) {
     addBotMessage("Đang quét toàn bộ dữ liệu tồn kho để lập danh sách...");
@@ -1147,7 +1147,7 @@
     function extractItems(sheetData, catName) {
       if (!sheetData || sheetData.length < 2) return;
       const headers = sheetData[0];
-      
+
       const codeColIdx = headers.findIndex(h => {
         const normH = normalizeText(h);
         return normH.includes('ma vat tu') || normH === 'ma';
@@ -1174,7 +1174,7 @@
 
         const qtyVal = row[qtyColIdx];
         const qtyNum = parseFloat(String(qtyVal).replace(/[^0-9.-]/g, '')) || 0;
-        
+
         let location = '';
         if (locColIdx !== -1 && row[locColIdx]) {
           const val = String(row[locColIdx]).trim();
@@ -1182,7 +1182,7 @@
             location = val;
           }
         }
-        
+
         if (qtyNum > 0) {
           items.push({
             code: cellCode,
@@ -1205,7 +1205,7 @@
     } else {
       let responseText = `Đã tìm thấy tổng cộng **${items.length}** mặt hàng đang tồn kho:\n`;
       let dataBoxContent = `<table class="va-table"><thead><tr><th>Mã (Loại)</th><th>Vị trí</th><th>Số lượng</th></tr></thead><tbody>`;
-      
+
       items.forEach((item, idx) => {
         const qtyFormatted = item.qty.toLocaleString('vi-VN') + " Kg";
         const locText = item.location ? ` - Vị trí: ${item.location}` : '';
@@ -1216,7 +1216,7 @@
       dataBoxContent += `</tbody></table>`;
 
       const verbalText = `Đã tìm thấy ${items.length} mặt hàng đang tồn kho. Tôi đã liệt kê danh sách chi tiết ở khung chat.`;
-      
+
       addBotMessage(responseText, dataBoxContent.trim());
       speak(verbalText);
     }
@@ -1238,10 +1238,10 @@
 
     // Parse date parts for comparison
     const targetParts = dateStr.split('/'); // [dd, mm, yyyy]
-    
+
     function parseDateToCompare(cellVal) {
       if (!cellVal) return null;
-      
+
       // If cell is date serial number (Excel)
       if (typeof cellVal === 'number') {
         const d = new Date((cellVal - 25569) * 86400 * 1000);
@@ -1251,7 +1251,7 @@
           year: d.getFullYear()
         };
       }
-      
+
       const valStr = String(cellVal).trim();
       const m = valStr.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
       if (m) {
@@ -1263,7 +1263,7 @@
           year: y
         };
       }
-      
+
       // ISO format or other
       const dt = new Date(valStr);
       if (!isNaN(dt.getTime())) {
@@ -1280,7 +1280,7 @@
     function searchNhapSheet(sheetData, category) {
       if (!sheetData || sheetData.length < 2) return;
       const headers = sheetData[0];
-      
+
       // Find Date and Weight column index
       const dateColIdx = headers.findIndex(h => {
         const norm = normalizeText(h);
@@ -1300,11 +1300,11 @@
       for (let i = 1; i < sheetData.length; i++) {
         const row = sheetData[i];
         const dateObj = parseDateToCompare(row[dateColIdx]);
-        
+
         if (dateObj) {
-          const matches = dateObj.day === parseInt(targetParts[0], 10) && 
-                          dateObj.month === parseInt(targetParts[1], 10) &&
-                          dateObj.year === parseInt(targetParts[2], 10);
+          const matches = dateObj.day === parseInt(targetParts[0], 10) &&
+            dateObj.month === parseInt(targetParts[1], 10) &&
+            dateObj.year === parseInt(targetParts[2], 10);
           if (matches) {
             results.push({
               code: row[codeColIdx] || 'Không có mã',
@@ -1334,7 +1334,7 @@
         const qtyNum = parseFloat(String(item.qty).replace(/[^0-9.-]/g, '')) || 0;
         if (item.category === "Xà Gồ") totalXG += qtyNum;
         if (item.category === "Tole") totalTole += qtyNum;
-        
+
         dataBoxContent += `+ [${item.category}] Mã ${item.code}: ${qtyNum.toLocaleString('vi-VN')} Kg\n`;
       });
 
@@ -1344,7 +1344,7 @@
 
       const summaryText = `Ngày ${dateStr} đã nhập tổng cộng: ${totalXGText}${andText}${totalToleText}. Chi tiết:\n`;
       const ttsText = `Ngày ${dateStr} nhập tổng cộng ${totalXG > 0 ? (totalXG + ' ký xà gồ') : ''} ${totalTole > 0 ? (' và ' + totalTole + ' ký tole') : ''}.`;
-      
+
       addBotMessage(summaryText, dataBoxContent.trim());
       speak(ttsText);
     }
@@ -1394,7 +1394,7 @@
       `- Xà gồ: Tồn ${xgResult.count} cuộn/mặt hàng. Tổng khối lượng: ${xgResult.sum.toLocaleString('vi-VN')} Kg.\n` +
       `- Tole: Tồn ${toleResult.count} cuộn/mặt hàng. Tổng khối lượng: ${toleResult.sum.toLocaleString('vi-VN')} Kg.\n` +
       `- Tổng cộng kho đang tồn: ${totalSum.toLocaleString('vi-VN')} Kg.`;
-      
+
     const ttsText = `Hiện tại, xà gồ tồn ${xgResult.sum.toLocaleString('vi-VN')} ký, tole tồn ${toleResult.sum.toLocaleString('vi-VN')} ký. Tổng tồn kho là ${totalSum.toLocaleString('vi-VN')} ký.`;
 
     addBotMessage(summaryText);
@@ -1406,7 +1406,7 @@
   function init() {
     // Avoid double injection
     if (document.getElementById('vaMicBtn')) return;
-    
+
     injectUI();
     console.log("DDC Voice Assistant successfully initialized!");
   }

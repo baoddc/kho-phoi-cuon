@@ -478,7 +478,7 @@ function parseRowDate(raw) {
 function parseVietnameseFloat(value) {
   if (value === null || value === undefined || value === '') return 0;
   if (typeof value === 'number') return value;
-  
+
   let text = value.toString().trim().replace(/\s+/g, '');
   const hasComma = text.includes(',');
   const hasDot = text.includes('.');
@@ -1100,7 +1100,7 @@ document.addEventListener('DOMContentLoaded', function () {
   // Kiểm tra xem đã đăng nhập chưa, nếu chưa thì quay về trang đăng nhập
   const currentUser = localStorage.getItem('currentUser');
   if (!currentUser) {
-    window.location.href = '/pages/index.html';
+    window.location.href = 'index.html';
     return;
   }
 
@@ -1482,7 +1482,7 @@ function setupLogout() {
   if (btnLogout) {
     btnLogout.addEventListener('click', function () {
       localStorage.removeItem('currentUser');
-      window.location.href = '/pages/index.html';
+      window.location.href = 'index.html';
     });
   }
 
@@ -1491,7 +1491,7 @@ function setupLogout() {
   if (logo) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', function () {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 }
@@ -2898,7 +2898,7 @@ async function handleEditFormSubmit(e) {
   // 1. Check main fields
   for (let i = 0; i < headers.length; i++) {
     if (i === matHangIdx || i === dvtIdx || i === trongLuongIdx || i === soXeIdx) continue;
-    
+
     const input = form.querySelector(`[name="col_${i}"]`);
     if (input && !input.value) {
       alert(`Vui lòng điền trường: ${headers[i] || `Cột ${i + 1}`}`);

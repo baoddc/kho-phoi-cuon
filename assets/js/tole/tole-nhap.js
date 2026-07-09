@@ -360,7 +360,7 @@ window.addEventListener('load', () => {
   if (btnLogout && currentUser) {
     btnLogout.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      window.location.replace('/pages/index.html');
+      window.location.replace('index.html');
     });
   }
 
@@ -369,7 +369,7 @@ window.addEventListener('load', () => {
   if (logo) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', () => {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 
@@ -544,16 +544,16 @@ function formatCellQuantityOrWeight(cell, header) {
       return parsedNum.toString();
     }
   }
-  const isQtyOrWeight = cleanHeader.includes('so luong') || 
-                        cleanHeader.includes('trong luong') || 
-                        cleanHeader.includes('khoi luong') || 
-                        cleanHeader.includes('so kg') || 
-                        cleanHeader.includes('so m') || 
-                        cleanHeader.includes('tan') || 
-                        cleanHeader.includes('ton') || 
-                        cleanHeader.includes('quy doi') || 
-                        cleanHeader === 'kg' ||
-                        cleanHeader === 'm';
+  const isQtyOrWeight = cleanHeader.includes('so luong') ||
+    cleanHeader.includes('trong luong') ||
+    cleanHeader.includes('khoi luong') ||
+    cleanHeader.includes('so kg') ||
+    cleanHeader.includes('so m') ||
+    cleanHeader.includes('tan') ||
+    cleanHeader.includes('ton') ||
+    cleanHeader.includes('quy doi') ||
+    cleanHeader === 'kg' ||
+    cleanHeader === 'm';
   if (isQtyOrWeight) {
     const parsedNum = parseNumericInput(cell);
     if (parsedNum !== null && !isNaN(parsedNum)) {
@@ -1571,7 +1571,7 @@ function openEditDataModal() {
       existingKg = String(parsed);
     }
   }
-  
+
   // Existing m (Column M = index 12)
   let existingM = '';
   if (rowData[12] !== undefined) {
@@ -1580,7 +1580,7 @@ function openEditDataModal() {
       existingM = String(parsedM);
     }
   }
-  
+
   addEditRollRow(existingKg, existingM);
 
   // Additional columns
@@ -1746,7 +1746,7 @@ function updateRollTotals() {
     const kgInput = row.querySelector('.roll-kg');
     const mInput = row.querySelector('.roll-m');
     let hasVal = false;
-    
+
     if (kgInput && kgInput.value) {
       const parsed = parseNumericInput(kgInput.value);
       if (parsed !== null && parsed > 0) {
@@ -1754,14 +1754,14 @@ function updateRollTotals() {
         hasVal = true;
       }
     }
-    
+
     if (mInput && mInput.value) {
       const parsedM = parseNumericInput(mInput.value);
       if (parsedM !== null && parsedM > 0) {
         totalM += parsedM;
       }
     }
-    
+
     if (hasVal) {
       rollsWithKg++;
     }
@@ -1837,7 +1837,7 @@ function updateEditRollTotals() {
     const kgInput = row.querySelector('.edit-roll-kg');
     const mInput = row.querySelector('.edit-roll-m');
     let hasVal = false;
-    
+
     if (kgInput && kgInput.value) {
       const parsed = parseNumericInput(kgInput.value);
       if (parsed !== null && parsed > 0) {
@@ -1845,14 +1845,14 @@ function updateEditRollTotals() {
         hasVal = true;
       }
     }
-    
+
     if (mInput && mInput.value) {
       const parsedM = parseNumericInput(mInput.value);
       if (parsedM !== null && parsedM > 0) {
         totalM += parsedM;
       }
     }
-    
+
     if (hasVal) {
       rollsWithKg++;
     }
@@ -1947,7 +1947,7 @@ document.addEventListener('submit', async (e) => {
         newRow[quantityColIndex] = String(val.kg);
         newRow.push(...additionalValues);
         // Ensure row has up to index 12 to set M column
-        while(newRow.length <= 12) newRow.push('');
+        while (newRow.length <= 12) newRow.push('');
         newRow[12] = val.m > 0 ? String(val.m) : '';
         return newRow;
       });
@@ -2094,9 +2094,9 @@ document.addEventListener('submit', async (e) => {
       const updatedRow = [...commonValues];
       updatedRow[quantityColIndex] = String(totalKg);
       updatedRow.push(...additionalValues);
-      
+
       // Set Column M (index 12)
-      while(updatedRow.length <= 12) updatedRow.push('');
+      while (updatedRow.length <= 12) updatedRow.push('');
       updatedRow[12] = totalM > 0 ? String(totalM) : '';
 
       // Ensure row has same length

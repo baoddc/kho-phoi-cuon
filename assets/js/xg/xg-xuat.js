@@ -367,7 +367,7 @@ window.addEventListener('load', () => {
   if (btnLogout && currentUser) {
     btnLogout.addEventListener('click', () => {
       localStorage.removeItem('currentUser');
-      window.location.replace('/pages/index.html');
+      window.location.replace('index.html');
     });
   }
 
@@ -376,7 +376,7 @@ window.addEventListener('load', () => {
   if (logo) {
     logo.style.cursor = 'pointer';
     logo.addEventListener('click', () => {
-      window.location.href = '/pages/home.html';
+      window.location.href = 'home.html';
     });
   }
 
