@@ -13,7 +13,7 @@ const XLSX_EXPORT_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/expo
 // OPTIONAL: If you want new rows submitted from the UI to be appended
 // directly into the Google Sheet, create a Google Apps Script web app
 // (see docs/append_to_sheet.md) and paste its URL here.
-const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzS6_RLVAO71u14Fc-oopijipyoJCscj9_iHwdhkRSOTMOb5Xt20a4z8oWPsiFRRRKAJA/exec';
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzhM-W0zn_6uF6kesnY6ms-9WyrXzeBXiCL62xedsi7lNsurt91Db9UFKRaq5aNvId4pA/exec';
 
 // ==================== PAGINATION CONFIG ====================
 const ROWS_PER_PAGE = 100; // Số dòng hiển thị mỗi trang
